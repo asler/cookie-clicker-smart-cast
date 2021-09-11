@@ -41,7 +41,7 @@ class SmartPurchase {
 
     if (!serendipity.bought && Game.T % (30 * 60) === 0){
       !luckyDay.bought && luckyDay.buy();
-      !serendipity.bought && fastGoldenCookieSpawn.buy()
+      !serendipity.bought && serendipity.buy()
     }
 
     if (!this.isBuying && first && (this.getLuckyBackedGoodsCookiePerCastAdded(first.bonus) < (Game.cookies - price) * .15 || !fastGoldenCookieSpawn)) {
