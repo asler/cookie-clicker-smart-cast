@@ -17,7 +17,7 @@ class SmartPurchase {
 
     let all = [...o1, ...o10, ...u]
     let greenBlue = all.filter(([key, val]) => val.colour === 'Green' || val.colour === 'Blue')
-    greenBlue.sort((a, b) => a.pp < b.pp ? -1 : 1)
+    greenBlue.sort((a, b) => a[1].pp < b[1].pp ? -1 : 1)
     return greenBlue
   }
 
