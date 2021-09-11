@@ -9,8 +9,8 @@ class SmartPurchase {
   }
 
   get data () {
-    let o1 = Object.entries(CookieMonsterData.Object1),
-      o10 = Object.entries(CookieMonsterData.Object10),
+    let o1 = Object.entries(CookieMonsterData.Objects1),
+      o10 = Object.entries(CookieMonsterData.Objects10),
       u = Object.entries(CookieMonsterData.Upgrades)
     o1.forEach(([key, val]) => val.buyCount = 1)
     o10.forEach(([key, val]) => val.buyCount = 10)
