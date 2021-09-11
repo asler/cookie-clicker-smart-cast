@@ -22,15 +22,21 @@ class SmartPurchase {
   }
 
   constructor (props) {
-    Game.registerHook('check', () => {this.doUpgrade()})
+    Game.registerHook('logic', () => {this.doUpgrade()})
   }
 
   doUpgrade () {
+    if (Game.t % 5 !== 0) {
+      return true
+    }
+
     let [name, first] = this.data[0]
     let { buyBulk } = Game
     let price = first.price || Game.Upgrades[name]?.basePrice
 
-    if (!this.isBuying && first && this.getLuckyBackedGoodsCookiePerCastAdded(first.bonus) < (Game.cookies - price) * .15) {
+    let isWizardTower = Game.Objects['Wizard tower'].amount >12
+
+    if (!this.isBuying && first && (this.getLuckyBackedGoodsCookiePerCastAdded(first.bonus) < (Game.cookies - price) * .15 || !isWizardTower)) {
       console.log(`buy '${name}' count:${first.buyCount || 1}`)
       if (Game.Objects[name]) {
         Game.buyBulk = first.buyCount
