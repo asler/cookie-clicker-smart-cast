@@ -22,6 +22,7 @@ class SmartPurchase {
   }
 
   constructor (props) {
+    Game.heralds = 100
     Game.registerHook('logic', () => {this.doUpgrade()})
   }
 
