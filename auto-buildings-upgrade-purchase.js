@@ -17,7 +17,7 @@ class SmartPurchase {
 
     let all = [...o1, ...o10, ...u]
     let greenBlue = all.filter(([key, val]) => val.colour === 'Green' || val.colour === 'Blue')
-    greenBlue.sort((a, b) => a.pp < b.pp)
+    greenBlue.sort((a, b) => a.pp < b.pp ? -1 : 1)
     return greenBlue
   }
 
@@ -30,7 +30,7 @@ class SmartPurchase {
     let { buyBulk } = Game
 
     if (!this.isBuying && first && this.getLuckyBackedGoodsCookiePerCastAdded(first.bonus) < (Game.cookies - first.price) * .15) {
-      console.log(`buy '${name}' count:${first.buyCount||1}`)
+      console.log(`buy '${name}' count:${first.buyCount || 1}`)
       if (Game.Objects[name]) {
         Game.buyBulk = first.buyCount
         this.isBuying = true
