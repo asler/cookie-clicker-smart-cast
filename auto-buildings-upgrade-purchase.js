@@ -1,38 +1,57 @@
-class SmartPurchase{
+class SmartPurchase {
 
   luckyMul = 7
+  halfHour = 30 * 60
+  isBuying = false
+
+  get cps () {
+    return Game.unbuffedCps
+  }
+
+  get data () {
+    let o1 = Object.entries(CookieMonsterData.Object1),
+      o10 = Object.entries(CookieMonsterData.Object10),
+      u = Object.entries(CookieMonsterData.Upgrades)
+    o1.forEach(([key, val]) => val.buyCount = 1)
+    o10.forEach(([key, val]) => val.buyCount = 10)
+
+    let all = [...o1, ...o10, ...u]
+    let greenBlue = all.filter(([key, val]) => val.colour === 'Green' || val.colour === 'Blue')
+    greenBlue.sort((a, b) => a.pp < b.pp)
+    return greenBlue
+  }
 
   constructor (props) {
-
-
-    // check
+    Game.registerHook('check', () => {this.doUpgrade()})
   }
 
-  getGreenBuilding(){
+  doUpgrade () {
+    let [name, first] = this.data[0]
+    let { buyBulk } = Game
 
+    if (!this.isBuying && first && this.getLuckyBackedGoodsCookiePerCastAdded(first.bonus) < (Game.cookies - first.price) * .15) {
+      console.log(`buy '${name}' count:${first.buyCount||1}`)
+      if (Game.Objects[name]) {
+        Game.buyBulk = first.buyCount
+        this.isBuying = true
+        setTimeout(() => {
+          // Game.Objects[name].buy()
+          Game.buyBulk = buyBulk
+          this.isBuying = false
+        }, 1000)
+
+      } else if (Game.Upgrades[name]) {
+        // Game.UpgradesById[first.id].click(new Event('click'))
+      }
+
+    }
   }
 
-  getBlueUpgrade(){
-
-  }
-
-  doUpgrade(){
-
-  }
-
-  getLuckyBackedGoodsCps(){
-
-  }
-
-  getLuckyBackedGoodsCpsAdded(addCps){
-
+  getLuckyBackedGoodsCookiePerCastAdded (addCps) {
+    return (this.cps + addCps) * this.halfHour * this.luckyMul
   }
 
 }
-
-
-
-
 
 var smartPurchase
 if (typeof CCSE == 'undefined') {
