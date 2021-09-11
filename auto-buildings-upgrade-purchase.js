@@ -26,7 +26,7 @@ class SmartPurchase {
   }
 
   doUpgrade () {
-    if (Game.t % 5 !== 0) {
+    if (Game.T % 5 !== 0) {
       return true
     }
 
