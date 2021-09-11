@@ -28,8 +28,9 @@ class SmartPurchase {
   doUpgrade () {
     let [name, first] = this.data[0]
     let { buyBulk } = Game
+    let price = first.price || Game.Upgrades[name]?.basePrice
 
-    if (!this.isBuying && first && this.getLuckyBackedGoodsCookiePerCastAdded(first.bonus) < (Game.cookies - first.price) * .15) {
+    if (!this.isBuying && first && this.getLuckyBackedGoodsCookiePerCastAdded(first.bonus) < (Game.cookies - price) * .15) {
       console.log(`buy '${name}' count:${first.buyCount || 1}`)
       if (Game.Objects[name]) {
         Game.buyBulk = first.buyCount
