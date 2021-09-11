@@ -42,7 +42,7 @@ class SmartPurchase {
         }, 1000)
 
       } else if (Game.Upgrades[name]) {
-        Game.UpgradesById[first.id].click(new Event('click'))
+        Game.Upgrades[name].buy()
       }
 
     }
