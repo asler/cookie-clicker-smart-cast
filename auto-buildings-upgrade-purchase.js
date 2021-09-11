@@ -36,13 +36,13 @@ class SmartPurchase {
         Game.buyBulk = first.buyCount
         this.isBuying = true
         setTimeout(() => {
-          // Game.Objects[name].buy()
+          Game.Objects[name].buy()
           Game.buyBulk = buyBulk
           this.isBuying = false
         }, 1000)
 
       } else if (Game.Upgrades[name]) {
-        // Game.UpgradesById[first.id].click(new Event('click'))
+        Game.UpgradesById[first.id].click(new Event('click'))
       }
 
     }
