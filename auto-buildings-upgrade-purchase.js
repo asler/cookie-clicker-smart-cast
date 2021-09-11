@@ -35,6 +35,14 @@ class SmartPurchase {
     let price = first.price || Game.Upgrades[name]?.basePrice
 
     let isWizardTower = Game.Objects['Wizard tower'].amount >12
+    let serendipity = Game.Upgrades['Serendipity'];
+    let fastGoldenCookieSpawn = serendipity.bought
+    let luckyDay = Game.Upgrades['Lucky day'];
+
+    if (!serendipity.bought && Game.T % (30 * 60) === 0){
+      !luckyDay.bought && luckyDay.buy();
+      !serendipity.bought && fastGoldenCookieSpawn.buy()
+    }
 
     if (!this.isBuying && first && (this.getLuckyBackedGoodsCookiePerCastAdded(first.bonus) < (Game.cookies - price) * .15 || !isWizardTower)) {
       console.log(`buy '${name}' count:${first.buyCount || 1}`)
