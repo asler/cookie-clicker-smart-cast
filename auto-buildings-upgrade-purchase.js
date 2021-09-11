@@ -34,7 +34,6 @@ class SmartPurchase {
     let { buyBulk } = Game
     let price = first.price || Game.Upgrades[name]?.basePrice
 
-    let isWizardTower = Game.Objects['Wizard tower'].amount >12
     let serendipity = Game.Upgrades['Serendipity'];
     let fastGoldenCookieSpawn = serendipity.bought
     let luckyDay = Game.Upgrades['Lucky day'];
@@ -44,7 +43,7 @@ class SmartPurchase {
       !serendipity.bought && fastGoldenCookieSpawn.buy()
     }
 
-    if (!this.isBuying && first && (this.getLuckyBackedGoodsCookiePerCastAdded(first.bonus) < (Game.cookies - price) * .15 || !isWizardTower)) {
+    if (!this.isBuying && first && (this.getLuckyBackedGoodsCookiePerCastAdded(first.bonus) < (Game.cookies - price) * .15 || !fastGoldenCookieSpawn)) {
       console.log(`buy '${name}' count:${first.buyCount || 1}`)
       if (Game.Objects[name]) {
         Game.buyBulk = first.buyCount
