@@ -12,9 +12,7 @@ class SmartCast {
   }
 
   constructor () {
-    if (Game.T % 5 === 0) {
-      //add some mana
-    }
+    Game.registerHook('logic', () => this.update())
     this.load()
   }
 
@@ -57,7 +55,7 @@ class SmartCast {
       minigame.castSpell(minigame.spellsById[0], spellParams)
     }
 
-    if (this.buffsMultiplayer>=this.config.doubleCastMultiplayer){
+    if (this.buffsMultiplayer >= this.config.doubleCastMultiplayer) {
       minigame.castSpell(minigame.spellsById[0], spellParams)
     }
   }
