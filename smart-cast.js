@@ -28,8 +28,8 @@ class SmartCast {
 
   load () {
     CCSE.customLoad.push(() => {
-      if (CCSE.save.OtherMods.SmartCast) {
-        this.config = CCSE.save.OtherMods.SmartCast
+      if (CCSE.config.OtherMods.SmartCast) {
+        this.config = CCSE.config.OtherMods.SmartCast
       }
     })
   }
@@ -39,7 +39,7 @@ class SmartCast {
   }
 
   save () {
-    CCSE.save.OtherMods.SmartCast = this.config
+    CCSE.config.OtherMods.SmartCast = this.config
   }
 
   get isManaMax () {
