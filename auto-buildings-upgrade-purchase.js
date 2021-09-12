@@ -33,6 +33,8 @@ class SmartPurchase {
       return true
     }
 
+    if (!this.data.length) return;
+
     let [name, first] = this.data[0]
     let { buyBulk } = Game
     let price = first.price || Game.Upgrades[name]?.basePrice
