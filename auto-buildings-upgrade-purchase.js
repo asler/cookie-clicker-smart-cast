@@ -17,7 +17,7 @@ class SmartPurchase {
     o10.forEach(([key, val]) => val.buyCount = 10)
     o100.forEach(([key, val]) => val.buyCount = 100)
 
-    let all = [...o1, ...o10, o100, ...u]
+    let all = [...o1, ...o10, ...o100, ...u]
     let greenBlue = all.filter(([key, val]) => val.colour === 'Green' || val.colour === 'Blue')
     greenBlue.sort((a, b) => a[1].pp < b[1].pp ? -1 : 1)
     return greenBlue
