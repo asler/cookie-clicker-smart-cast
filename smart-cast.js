@@ -47,31 +47,32 @@ class SmartCast {
   }
 
   cast () {
-    if (this.isManaMax &&  this.buffsMultiplayer >= this.config.minBuffCpsMultiplayer) {
+    if (this.isManaMax && this.buffsMultiplayer >= this.config.minBuffCpsMultiplayer) {
       let { minigame } = Game.ObjectsById[7]
       let spellParams = {
         failChanceAdd: -this.config.failChanceReduce
       }
       minigame.castSpell(minigame.spellsById[0], spellParams)
+      if (this.buffsMultiplayer>=10){
+        minigame.castSpell(minigame.spellsById[0], spellParams)
+      }
     }
   }
 
   eatGoldenCookie () {
-    let cookie = document.querySelector('.shimmer')
-    if (cookie) {
-      cookie.dispatchEvent(new Event('click'))
+    if (Game.shimmers.length) {
+      [...Game.shimmers].map((s) => s.pop())
     }
   }
 
-  update(){
-    if(Game.T % 5 === 0){
+  update () {
+    if (Game.T % 5 === 0) {
       this.eatGoldenCookie()
       this.cast()
     }
   }
 
 }
-
 
 if (!smartCast) {
   if (CCSE && CCSE.isLoaded) {
