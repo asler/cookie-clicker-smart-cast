@@ -7,7 +7,8 @@ class SmartCast {
 
   config = {
     minBuffCpsMultiplayer: 3,
-    failChanceReduce: 0
+    failChanceReduce: .15,
+    doubleCastMultiplayer: 10
   }
 
   constructor () {
@@ -27,7 +28,7 @@ class SmartCast {
 
   load () {
     CCSE.customLoad.push(() => {
-      if (CCSE.save.SmartCast.MyMod) {
+      if (CCSE.save.OtherMods.SmartCast) {
         this.config = CCSE.save.OtherMods.SmartCast
       }
     })
@@ -47,15 +48,17 @@ class SmartCast {
   }
 
   cast () {
+    let spellParams = {
+      failChanceAdd: -this.config.failChanceReduce
+    }
+    let { minigame } = Game.ObjectsById[7]
+
     if (this.isManaMax && this.buffsMultiplayer >= this.config.minBuffCpsMultiplayer) {
-      let { minigame } = Game.ObjectsById[7]
-      let spellParams = {
-        failChanceAdd: -this.config.failChanceReduce
-      }
       minigame.castSpell(minigame.spellsById[0], spellParams)
-      if (this.buffsMultiplayer>=10){
-        minigame.castSpell(minigame.spellsById[0], spellParams)
-      }
+    }
+
+    if (this.buffsMultiplayer>=this.config.doubleCastMultiplayer){
+      minigame.castSpell(minigame.spellsById[0], spellParams)
     }
   }
 
@@ -71,7 +74,6 @@ class SmartCast {
       this.cast()
     }
   }
-
 }
 
 if (!smartCast) {
