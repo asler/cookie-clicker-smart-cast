@@ -11,11 +11,13 @@ class SmartPurchase {
   get data () {
     let o1 = Object.entries(CookieMonsterData.Objects1),
       o10 = Object.entries(CookieMonsterData.Objects10),
+      o100 = Object.entries(CookieMonsterData.Objects100),
       u = Object.entries(CookieMonsterData.Upgrades)
     o1.forEach(([key, val]) => val.buyCount = 1)
     o10.forEach(([key, val]) => val.buyCount = 10)
+    o100.forEach(([key, val]) => val.buyCount = 100)
 
-    let all = [...o1, ...o10, ...u]
+    let all = [...o1, ...o10, o100, ...u]
     let greenBlue = all.filter(([key, val]) => val.colour === 'Green' || val.colour === 'Blue')
     greenBlue.sort((a, b) => a[1].pp < b[1].pp ? -1 : 1)
     return greenBlue
