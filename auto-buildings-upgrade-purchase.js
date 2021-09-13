@@ -18,7 +18,7 @@ class SmartPurchase {
     o100.forEach(([key, val]) => val.buyCount = 100)
 
     let all = [...o1, ...o10, ...o100, ...u]
-    let greenBlue = all.filter(([key, val]) => val.colour === 'Green' || val.colour === 'Blue')
+    let greenBlue = all.filter(([key, val]) => ['Blue', 'Green', 'Yellow'].indexOf(val) >= 0)
     greenBlue.sort((a, b) => a[1].pp < b[1].pp ? -1 : 1)
     return greenBlue
   }
@@ -33,22 +33,23 @@ class SmartPurchase {
       return true
     }
 
-    if (!this.data.length) return;
+    if (!this.data.length) {
+      return
+    }
 
     let [name, first] = this.data[0]
     let { buyBulk } = Game
     let price = first.price || Game.Upgrades[name]?.basePrice
 
-    let serendipity = Game.Upgrades['Serendipity'];
-    let fastGoldenCookieSpawn = serendipity.bought
-    let luckyDay = Game.Upgrades['Lucky day'];
+    let serendipity = Game.Upgrades['Serendipity']
+    let luckyDay = Game.Upgrades['Lucky day']
 
-    if (!serendipity.bought && Game.T % (30 * 60) === 0){
-      !luckyDay.bought && luckyDay.buy();
+    if (!serendipity.bought && Game.T % (30 * 60) === 0) {
+      !luckyDay.bought && luckyDay.buy()
       !serendipity.bought && serendipity.buy()
     }
 
-    if (!this.isBuying && first && (this.getLuckyBackedGoodsCookiePerCastAdded(first.bonus) < (Game.cookies - price) * .15 || !fastGoldenCookieSpawn)) {
+    if (!this.isBuying && first && (this.getLuckyBackedGoodsCookiePerCastAdded(first.bonus) < (Game.cookies - price) * .15 || !serendipity.bought)) {
       console.log(`buy '${name}' count:${first.buyCount || 1}`)
       if (Game.Objects[name]) {
         Game.buyBulk = first.buyCount
