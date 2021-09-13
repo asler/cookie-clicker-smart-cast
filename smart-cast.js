@@ -55,9 +55,9 @@ class SmartCast {
       minigame.castSpell(minigame.spellsById[0], spellParams)
     }
 
-    if (this.buffsMultiplayer >= this.config.doubleCastMultiplayer) {
-      minigame.castSpell(minigame.spellsById[0], spellParams)
-    }
+    // if (this.buffsMultiplayer >= this.config.doubleCastMultiplayer) {
+    //   minigame.castSpell(minigame.spellsById[0], spellParams)
+    // }
   }
 
   eatGoldenCookie () {
