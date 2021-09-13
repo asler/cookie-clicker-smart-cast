@@ -22,7 +22,7 @@ class SmartPurchase {
 
     all = all.filter(([key, val]) => key !== 'Wizard tower' || val.bought < this.wizardTowerMaxLevel)
 
-    let greenBlue = all.filter(([key, val]) => ['Blue', 'Green', 'Yellow'].indexOf(val) >= 0)
+    let greenBlue = all.filter(([key, val]) => ['Blue', 'Green', 'Yellow'].indexOf(val.colour) >= 0)
     greenBlue.sort((a, b) => a[1].pp < b[1].pp ? -1 : 1)
     return greenBlue
   }
