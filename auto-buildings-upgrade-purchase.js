@@ -72,7 +72,11 @@ class SmartPurchase {
   }
 
   getLuckyBackedGoodsCookiePerCastAdded (addCps) {
-    return (this.cps + addCps) * this.halfHour * this.luckyMul
+    return (this.cps + addCps / this.buffsMultiplayer) * this.halfHour * this.luckyMul
+  }
+
+  get buffsMultiplayer () {
+    return Object.entries(Game.buffs).reduce((mult, [key, buff]) => mult * buff.multCpS, 1)
   }
 
 }
