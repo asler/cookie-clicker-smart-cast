@@ -46,6 +46,7 @@ class SmartCast {
   }
 
   cast () {
+    //M.magicPS=Math.max(0.002,Math.pow(M.magic/Math.max(M.magicM,100),0.5))*0.002;
     let spellParams = {
       failChanceAdd: -this.config.failChanceReduce
     }

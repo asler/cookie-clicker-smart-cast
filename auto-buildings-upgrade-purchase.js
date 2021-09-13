@@ -5,6 +5,8 @@ class SmartPurchase {
   isBuying = false
   wizardTowerMaxLevel = 7
 
+  ignoreUpgrades = ['Golden switch [off]', 'Golden switch [on]']
+
   get cps () {
     return Game.unbuffedCps
   }
@@ -21,6 +23,7 @@ class SmartPurchase {
     let all = [...o1, ...o10, ...o100, ...u]
 
     all = all.filter(([key, val]) => key !== 'Wizard tower' || val.bought < this.wizardTowerMaxLevel)
+    all = all.filter(([key, val]) => this.ignoreUpgrades.indexOf(key) === -1)
 
     let greenBlue = all.filter(([key, val]) => ['Blue', 'Green', 'Yellow'].indexOf(val.colour) >= 0)
     greenBlue.sort((a, b) => a[1].pp < b[1].pp ? -1 : 1)
