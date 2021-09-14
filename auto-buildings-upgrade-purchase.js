@@ -47,7 +47,7 @@ class SmartPurchase {
     let x1 = objectsList.filter(o => o.buyCount === 1)
     let x10 = objectsList.filter(o => o.buyCount === 10)
 
-    let object = x10.length && [0][1].pp < this.config.minPP10 ? x10 : objectsList[0]
+    let object = x10.length && x10[0][1].pp < this.config.minPP10 ? x10[0] : objectsList[0]
 
     let [name, first] = object
     let { buyBulk } = Game
@@ -61,7 +61,10 @@ class SmartPurchase {
       !serendipity.bought && serendipity.buy()
     }
 
-    if (!this.isBuying && first && (this.getLuckyBackedGoodsCookiePerCastAdded(first.bonus) < (Game.cookies - price) * .15 || !serendipity.bought || first.pp < this.config.minPP)) {
+    let isX1minPP = first.pp < this.config.minPP
+    let isX10minPP = x10.length && x10[0] === object
+
+    if (!this.isBuying && first && (this.getLuckyBackedGoodsCookiePerCastAdded(first.bonus) < (Game.cookies - price) * .15 || !serendipity.bought || isX1minPP || isX10minPP)) {
       console.log(`buy '${name}' count:${first.buyCount || 1}`)
       if (Game.Objects[name]) {
         Game.buyBulk = first.buyCount
