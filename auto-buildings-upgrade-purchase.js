@@ -1,8 +1,8 @@
 class SmartPurchase {
   config = {
-    luckyMul : 7,
-    minPP : 1,
-    wizardTowerMaxLevel:2
+    luckyMul: 7,
+    minPP: 1,
+    wizardTowerMaxLevel: 2
   }
 
   halfHour = 30 * 60
@@ -14,7 +14,7 @@ class SmartPurchase {
     return Game.unbuffedCps
   }
 
-  get data () {
+  get objectsList () {
     let o1 = Object.entries(CookieMonsterData.Objects1),
       o10 = Object.entries(CookieMonsterData.Objects10),
       o100 = Object.entries(CookieMonsterData.Objects100),
@@ -39,11 +39,16 @@ class SmartPurchase {
   }
 
   doUpgrade () {
-    if (!this.data.length) {
+    let objectsList = this.objectsList
+    if (!objectsList.length) {
       return
     }
+    let x1 = objectsList.filter(o => o.buyCount === 1)
+    let x10 = objectsList.filter(o => o.buyCount === 10)
 
-    let [name, first] = this.data[0]
+    let object = x10[0][1].pp < this.config.minPP * 10 ? x10 : objectsList[0]
+
+    let [name, first] = object
     let { buyBulk } = Game
     let price = first.price || Game.Upgrades[name]?.basePrice
 
