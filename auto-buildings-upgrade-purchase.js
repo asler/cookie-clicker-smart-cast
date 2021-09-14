@@ -1,6 +1,11 @@
 class SmartPurchase {
 
-  luckyMul = 7
+
+  config = {
+    luckyMul : 7,
+    minPP : 1,
+  }
+
   halfHour = 30 * 60
   isBuying = false
   wizardTowerMaxLevel = 7
@@ -56,7 +61,7 @@ class SmartPurchase {
       !serendipity.bought && serendipity.buy()
     }
 
-    if (!this.isBuying && first && (this.getLuckyBackedGoodsCookiePerCastAdded(first.bonus) < (Game.cookies - price) * .15 || !serendipity.bought)) {
+    if (!this.isBuying && first && (this.getLuckyBackedGoodsCookiePerCastAdded(first.bonus) < (Game.cookies - price) * .15 || !serendipity.bought || first.pp < this.config.minPP)) {
       console.log(`buy '${name}' count:${first.buyCount || 1}`)
       if (Game.Objects[name]) {
         Game.buyBulk = first.buyCount
@@ -75,7 +80,7 @@ class SmartPurchase {
   }
 
   getLuckyBackedGoodsCookiePerCastAdded (addCps) {
-    return (this.cps + addCps / this.buffsMultiplayer) * this.halfHour * this.luckyMul
+    return (this.cps + addCps / this.buffsMultiplayer) * this.halfHour * this.config.luckyMul
   }
 
   get buffsMultiplayer () {
