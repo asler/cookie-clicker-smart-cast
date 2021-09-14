@@ -1,14 +1,12 @@
 class SmartPurchase {
-
-
   config = {
     luckyMul : 7,
     minPP : 1,
+    wizardTowerMaxLevel:2
   }
 
   halfHour = 30 * 60
   isBuying = false
-  wizardTowerMaxLevel = 7
 
   ignoreUpgrades = ['Golden switch [off]', 'Golden switch [on]']
 
@@ -27,7 +25,7 @@ class SmartPurchase {
 
     let all = [...o1, ...o10, ...o100, ...u]
 
-    all = all.filter(([key, val]) => key !== 'Wizard tower' || val.bought < this.wizardTowerMaxLevel)
+    all = all.filter(([key, val]) => key !== 'Wizard tower' || val.bought < this.config.wizardTowerMaxLevel)
     all = all.filter(([key, val]) => this.ignoreUpgrades.indexOf(key) === -1)
 
     let greenBlue = all.filter(([key, val]) => ['Blue', 'Green', 'Yellow'].indexOf(val.colour) >= 0)
@@ -41,10 +39,6 @@ class SmartPurchase {
   }
 
   doUpgrade () {
-    if (Game.T % 5 !== 0) {
-      return true
-    }
-
     if (!this.data.length) {
       return
     }
