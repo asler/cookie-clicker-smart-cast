@@ -2,6 +2,7 @@ class SmartPurchase {
   config = {
     luckyMul: 7,
     minPP: 1,
+    minPP10: 100,
     wizardTowerMaxLevel: 2
   }
 
@@ -28,7 +29,7 @@ class SmartPurchase {
     all = all.filter(([key, val]) => key !== 'Wizard tower' || val.bought < this.config.wizardTowerMaxLevel)
     all = all.filter(([key, val]) => this.ignoreUpgrades.indexOf(key) === -1)
 
-    let greenBlue = all.filter(([key, val]) => ['Blue', 'Green', 'Yellow'].indexOf(val.colour) >= 0)
+    let greenBlue = all.filter(([key, val]) => ['Blue', 'Green', 'Yellow', 'Orange'].indexOf(val.colour) >= 0)
     greenBlue.sort((a, b) => a[1].pp < b[1].pp ? -1 : 1)
     return greenBlue
   }
@@ -46,7 +47,7 @@ class SmartPurchase {
     let x1 = objectsList.filter(o => o.buyCount === 1)
     let x10 = objectsList.filter(o => o.buyCount === 10)
 
-    let object = x10[0][1].pp < this.config.minPP * 10 ? x10 : objectsList[0]
+    let object = x10.length && [0][1].pp < this.config.minPP10 ? x10 : objectsList[0]
 
     let [name, first] = object
     let { buyBulk } = Game
