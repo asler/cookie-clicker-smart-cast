@@ -44,8 +44,8 @@ class SmartPurchase {
     if (!objectsList.length) {
       return
     }
-    let x1 = objectsList.filter(o => o.buyCount === 1)
-    let x10 = objectsList.filter(o => o.buyCount === 10)
+    let x1 = objectsList.filter(([n,o]) => o.buyCount === 1)
+    let x10 = objectsList.filter(([n,o]) => o.buyCount === 10)
 
     let object = x10.length && x10[0][1].pp < this.config.minPP10 ? x10[0] : objectsList[0]
 
