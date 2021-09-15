@@ -8,7 +8,7 @@ class SmartCast {
   config = {
     minBuffCpsMultiplayer: 3,
     failChanceReduce: .15,
-    doubleCastMultiplayer: 10
+    doubleCastMultiplayer: 7*15-1
   }
 
   constructor () {
@@ -56,9 +56,9 @@ class SmartCast {
       minigame.castSpell(minigame.spellsById[0], spellParams)
     }
 
-    // if (this.buffsMultiplayer >= this.config.doubleCastMultiplayer) {
-    //   minigame.castSpell(minigame.spellsById[0], spellParams)
-    // }
+    if (this.buffsMultiplayer >= this.config.doubleCastMultiplayer) {
+      minigame.castSpell(minigame.spellsById[0], spellParams)
+    }
   }
 
   eatGoldenCookie () {

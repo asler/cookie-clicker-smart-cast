@@ -9,7 +9,7 @@ class SmartPurchase {
   halfHour = 30 * 60
   isBuying = false
 
-  ignoreUpgrades = ['Golden switch [off]', 'Golden switch [on]', 'One mind']
+  ignoreUpgrades = ['Golden switch [off]', 'Golden switch [on]', 'One mind', 'Elder Pledge']
 
   get cps () {
     return Game.unbuffedCps
